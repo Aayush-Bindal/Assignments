@@ -2,9 +2,9 @@
 using namespace std;
 
 void bubbleSort(int arr[], int n) {
-    bool isSwapped = false;
     for (int i = 0; i < n - 1; i++) {
         // Last i element will already be placed
+        bool isSwapped = false;
         for (int j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 // Swap if elements are in the wrong order
