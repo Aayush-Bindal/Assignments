@@ -1,63 +1,96 @@
 #include <iostream>
 using namespace std;
-class qIMParr {
-    int q[10];
-    int size=10;
-    int start=-1;
-    int end=-1;
-    int curr_size=0;
+
+#define MAX_SIZE 5
+
+class Queue {
 public:
-    void push(int x) {
-        if (end==size) {
-            cout<<"The queue is full!"<<endl;
-        }
-        else {
-            start=0;
-            q[++end]=x;
-            curr_size++;
-        }
+    int front;
+    int rear;
+    int arr[MAX_SIZE];
+
+    Queue(): front(-1), rear(-1) {}
+
+    bool isEmpty() {
+        return front == -1 || front > rear; 
     }
-    void pop() {
-        if (curr_size==0) {
-            cout<<"The queue is empty!"<<endl;
+
+    bool isFull() {
+        return rear == MAX_SIZE - 1; 
+    }
+
+    int peek() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        }
+        return arr[front];
+    }
+
+    void enqueue(int val) {
+        if (isFull()) {
+            cout << "Queue is full" << endl;
             return;
         }
-        if (start==end) {
-            start=-1;
-            end=-1;
+        
+        if (isEmpty())
+            front = 0;
+
+        rear++;
+        arr[rear] = val;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return -1;
         }
-        else {
-            start++;
-        }
-        curr_size--;
+        int ans = arr[front];
+        front++;
+
+        if (isEmpty())
+            front = rear = -1;
+
+        return ans;
     }
-    bool isEmpty() {
-        return !curr_size;
-    }
-    bool isFull() {
-        return end==size-1;
-    }
-    int peek() {
-        return q[start];
-    }
+
     void display() {
         if (isEmpty()) {
-            cout<<"The queue is empty!"<<endl;
+            cout << "Queue is empty" << endl;
             return;
         }
-        for (int i=start;i<=end;i++) {
-            cout<<q[i]<<" ";
+        cout << "Queue:  ";
+        for (int i = front; i <= rear; i++) {
+            cout << arr[i] << " ";
         }
-        cout<<endl;
+
+        cout << endl;
     }
 };
+
 int main() {
-    qIMParr q;
-    q.push(10);
-    cout<<q.top()<<endl;
-    q.push(20);
-    q.pop();
-    cout<<q.top()<<endl;
-    cout<<q.peek();
+    Queue q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    q.display();
+    cout << "Front element: " << q.peek() << endl;
+
+    q.enqueue(4);
+    q.enqueue(5);
+
+    q.display();
+
+    q.enqueue(6);
+
+    cout << "Dequeued element: " << q.dequeue() << endl;
+    cout << "Dequeued element: " << q.dequeue() << endl;
+
+    q.display();
+    cout << "Front element: " << q.peek() << endl;
+
+
     return 0;
 }
