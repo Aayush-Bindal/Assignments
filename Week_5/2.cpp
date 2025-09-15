@@ -1,69 +1,104 @@
 #include <iostream>
 using namespace std;
-class qIMParr {
-    int q[10];
-    int size=10;
-    int start=-1;
-    int end=-1;
-    int curr_size=0;
+
+#define MAX_SIZE 5
+
+class circularQueue {
 public:
-    void push(int x) {
-        if (curr_size==size) {
-            cout<<"The element cannot be inserted!"<<endl;
-        }
-        else {
-            if (!curr_size) {
-                start++;
-                end++;
-                q[end]=x;
-            }
-            else {
-                end=(end+1)%size;
-                q[end]=x;
-            }
-            curr_size++;
-        }
-    }
-    void pop() {
-        if (curr_size==0) {
-            cout<<"The queue is empty!"<<endl;
-        }
-        else {
-            if (curr_size==1) {
-                start=-1;
-                end=-1;
-            }
-            else {
-                start=(start+1)%size;
-            }
-            curr_size--;
-        }
-    }
-    int top() {
-        if (curr_size==0) {
-            cout<<"The queue is empty!"<<endl;
-        }
-        else {
-            return q[start];
-        }
-    }
-    int sizeq() {
-        return curr_size;
-    }
-    int peek() {
-        return q[start];
-    }
+    int front;
+    int rear;
+    int arr[MAX_SIZE];
+
+    circularQueue(): front(-1), rear(-1) {}
+
     bool isEmpty() {
-        return !curr_size;
+        return front == -1; 
+    }
+
+    bool isFull() {
+        return (rear + 1) % MAX_SIZE == front; 
+    }
+
+    int peek() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        }
+        return arr[front];
+    }
+
+    void enqueue(int val) {
+        if (isFull()) {
+            cout << "Queue is full" << endl;
+            return;
+        }
+        
+        if (isEmpty()){
+            front = rear = 0;
+        } else rear = (rear + 1) % MAX_SIZE;
+
+        arr[rear] = val;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        }
+        int ans = arr[front];
+        
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % MAX_SIZE;
+        }
+
+        return ans;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        cout << "Queue:  ";
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear)
+                break;
+            i = (i + 1) % MAX_SIZE;
+        }
+        cout << endl;
     }
 };
+
 int main() {
-    qIMParr q;
-    q.push(10);
-    cout<<q.top()<<endl;
-    q.push(20);
-    q.pop();
-    cout<<q.top()<<endl;
-    cout<<q.peek();
+    circularQueue q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    q.display();
+    cout << "Front element: " << q.peek() << endl;
+
+    q.enqueue(4);
+    q.enqueue(5);
+    
+    cout << "Remove: " << q.dequeue() << endl;
+
+    q.display();
+
+    q.enqueue(6);
+    
+    q.display();
+
+    cout << "Remove: " << q.dequeue() << endl;
+
+    q.display();
+    cout << "Front element: " << q.peek() << endl;
+
+
     return 0;
 }
