@@ -54,9 +54,9 @@ int main() {
     int arr[] = {29, 10, 14, 37, 13};
     int size = sizeof(arr) / sizeof(arr[0]);
     printArray(arr, size);
-    // selectionSort(arr, size);
-    // bubbleSort(arr, size);
-    insertionSort(arr, size);
+    // selectionSort(arr, size); //BigO(n2)
+    // bubbleSort(arr, size); //BigO(n2) Bigw(n)
+    // insertionSort(arr, size); //BigO(n2) Bigw(n)
     printArray(arr, size);
 
     return 0;
