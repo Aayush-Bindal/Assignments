@@ -32,6 +32,24 @@ void bubbleSort(int arr[], int n) {
     }
 }
 
+void bubbleSortR(int arr[], int n) {
+    if (n == 0) {
+        return;
+    }
+    int count = 0;
+
+    for (int i = 0; i < n-1; i++) {
+        if (arr[i] > arr[i+1]) {
+            swap(arr[i], arr[i+1]);
+            count++;
+        }
+    }
+
+    if (!count) {
+        return;
+    }
+}
+
 void insertionSort(int arr[], int n) {
     for (int i = 0; i < n ; i++) {
         int j = i;
@@ -57,6 +75,7 @@ int main() {
     // selectionSort(arr, size); //BigO(n2)
     // bubbleSort(arr, size); //BigO(n2) Bigw(n)
     // insertionSort(arr, size); //BigO(n2) Bigw(n)
+    // bubbleSortR(arr, size);
     printArray(arr, size);
 
     return 0;
