@@ -48,6 +48,8 @@ void bubbleSortR(int arr[], int n) {
     if (!count) {
         return;
     }
+
+    bubbleSortR(arr, n-1);
 }
 
 void insertionSort(int arr[], int n) {
@@ -75,7 +77,7 @@ int main() {
     // selectionSort(arr, size); //BigO(n2)
     // bubbleSort(arr, size); //BigO(n2) Bigw(n)
     // insertionSort(arr, size); //BigO(n2) Bigw(n)
-    // bubbleSortR(arr, size);
+    bubbleSortR(arr, size);
     printArray(arr, size);
 
     return 0;
